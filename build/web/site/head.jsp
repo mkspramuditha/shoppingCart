@@ -10,6 +10,7 @@
     <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/responsive.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/simplePagination.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>

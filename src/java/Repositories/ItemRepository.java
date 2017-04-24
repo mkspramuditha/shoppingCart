@@ -115,6 +115,14 @@ public class ItemRepository {
         item.setPrice(result.getFloat("price"));
         item.setItemCode(result.getString("itemCode"));
         item.setQuantity(result.getInt("quantity"));
+        item.setImage(result.getString("image"));
+        if(user == null){
+            user = new User();
+            user.setId(result.getInt("users.id"));
+            user.setEmail(result.getString("users.email"));
+            user.setFirstName(result.getString("users.firstName"));
+            user.setLastName(result.getString("users.lastName"));
+        }
         item.setUser(user);
         Category newCategory = new Category();
         newCategory.setId(result.getInt("categories.id"));
@@ -146,5 +154,40 @@ public class ItemRepository {
             return false;
         }
 
+    }
+    
+    public static ArrayList<Item> getItemsBy(){
+        connection = DBHandler.getConnection();
+           ArrayList<Item> items=new ArrayList<Item>();
+          String query = "SELECT * FROM `items` JOIN categories ON items.category = categories.id JOIN users ON items.user = users.id ";
+          
+          
+          query = query.replaceAll("\"", "");
+          System.out.println(query);
+          try{
+            Statement userCheck = connection.createStatement();
+            ResultSet result = userCheck.executeQuery(query);
+            result.last();
+            int size = result.getRow();
+            result.beforeFirst();
+            if(size < 1){
+                System.out.println("null returned");
+                return null;
+            }
+            
+
+            while (result.next()) {
+
+                items.add(createObject(result, null));
+                
+            }
+	    	        
+            
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+          
+        return items;
     }
 }

@@ -32,7 +32,6 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  */
 @WebServlet(name = "AddItem", urlPatterns = {"/addItem"})
 public class AddItem extends HttpServlet {
-    private final String UPLOAD_DIRECTORY = "./uploads";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -103,7 +102,8 @@ public class AddItem extends HttpServlet {
             return;
         }
         
-        
+        String path = request.getServletContext().getRealPath("/uploads");
+        System.out.println(path);
         
         if(ServletFileUpload.isMultipartContent(request)){
             try {
@@ -113,10 +113,10 @@ public class AddItem extends HttpServlet {
                 for(FileItem item : multiparts){
                     if(!item.isFormField()){
                         String fileName = new File(item.getName()).getName();
-//                        new File(UPLOAD_DIRECTORY).mkdirs();
-                        File directory = new File(UPLOAD_DIRECTORY + File.separator + fileName);
+//                        new File(path).mkdirs();
+                        File directory = new File(path + File.separator + fileName);
                         image = fileName;
-                        item.write( directory);
+                        item.write(directory);
                     }
                     else{
                         if("name".equals(item.getFieldName())){

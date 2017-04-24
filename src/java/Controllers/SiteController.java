@@ -6,6 +6,7 @@
 package Controllers;
 
 import Entity.Category;
+import Entity.Item;
 import Repositories.ItemRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -63,7 +64,9 @@ public class SiteController extends HttpServlet {
             throws ServletException, IOException {
         ArrayList<Category> categories = ItemRepository.getCategories();
         request.setAttribute("categories", categories);
-        System.out.println("sdsd"+categories.size());
+
+        ArrayList<Item> items = ItemRepository.getItemsBy();
+        request.setAttribute("items", items);
         request.getRequestDispatcher("site/index.jsp").forward(request, response);
     }
 
