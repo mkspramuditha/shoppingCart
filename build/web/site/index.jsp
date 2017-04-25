@@ -46,7 +46,9 @@
 							<div class="well text-center">
 								 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
 								 <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
+                                                                 
 							</div>
+                                                        <button class="btn btn-success">Filter</button>
 						</div><!--/price-range-->
 						
 						<div class="shipping text-center"><!--shipping-->
@@ -82,12 +84,12 @@
                                                                                                 </div>
                                                                                         </div>
                                                                                 </div>
-                                                                                <div class="choose">
+<!--                                                                                <div class="choose">
                                                                                         <ul class="nav nav-pills nav-justified">
                                                                                                 <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
                                                                                                 <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
                                                                                         </ul>
-                                                                                </div>
+                                                                                </div>-->
                                                                         </div>
                                                                 </div>
                                                             </c:forEach>
@@ -162,6 +164,19 @@
                 checkFragment();
             });
         </script>
+        
+        <script>
+            
+            function filter(){
+                window.location.href = '/shoppingCart/?name="12"&category="1"&lPrice="200"&hPrice="1000"';
+            
+
+            }
+            
+        </script>
+        
+        
+            
     
    
 

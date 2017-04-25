@@ -156,11 +156,40 @@ public class ItemRepository {
 
     }
     
-    public static ArrayList<Item> getItemsBy(){
+    public static ArrayList<Item> getItemsBy(String name,String category, String lPrice, String hPrice){
         connection = DBHandler.getConnection();
            ArrayList<Item> items=new ArrayList<Item>();
           String query = "SELECT * FROM `items` JOIN categories ON items.category = categories.id JOIN users ON items.user = users.id ";
           
+          ArrayList<String> andQueries = new ArrayList<String>();
+          if(name != null & name != ""){
+              andQueries.add("items.name LIKE '%"+name+"%'");
+          }
+          if(category != null & category != ""){
+              andQueries.add("items.category = "+category);
+          }
+          if(lPrice != null & lPrice != ""){
+              andQueries.add("items.price >="+lPrice);
+          }
+          
+          if(hPrice != null & hPrice != ""){
+              andQueries.add("items.price <="+hPrice);
+          }
+          
+          
+          if(andQueries.size()>0){
+              query+=" WHERE ( ";
+          }
+          for (int i = 0; i < andQueries.size(); i++) {
+              query+= andQueries.get(i);
+              if(i!= andQueries.size()-1){
+                  query += " AND ";
+              }
+          }
+          
+          if(andQueries.size()>0){
+              query+= " )";
+          }
           
           query = query.replaceAll("\"", "");
           System.out.println(query);

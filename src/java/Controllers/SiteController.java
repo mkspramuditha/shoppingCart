@@ -64,8 +64,13 @@ public class SiteController extends HttpServlet {
             throws ServletException, IOException {
         ArrayList<Category> categories = ItemRepository.getCategories();
         request.setAttribute("categories", categories);
+        
+        String name = request.getParameter("name");
+        String category = request.getParameter("category");
+        String lPrice = request.getParameter("lPrice");
+        String hPrice = request.getParameter("hPrice");
 
-        ArrayList<Item> items = ItemRepository.getItemsBy();
+        ArrayList<Item> items = ItemRepository.getItemsBy(name,category,lPrice,hPrice);
         request.setAttribute("items", items);
         request.getRequestDispatcher("site/index.jsp").forward(request, response);
     }
