@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
 			<div class="container">
@@ -108,7 +109,17 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+                                                    <c:choose>
+                                                        <c:when test="${name == null}">
+                                                            <input id="search" type="text" placeholder="Search"  /> 
+                                                        </c:when>
+                                                            <c:otherwise>
+                                                                <input id="search" type="text" placeholder="Search" value=${name}> 
+                                                            </c:otherwise>
+                                                        
+                                                    </c:choose>
+                                          
+                                                    <button onClick="filterName(<c:if test="${empty category}">null</c:if><c:if test="${not empty category}">${category}</c:if>    , <c:if test="${empty i}">null</c:if><c:if test="${not empty i}">${i}</c:if>   ,   <c:if test="${empty j}">null</c:if><c:if test="${not empty j}">${j}</c:if> );" id="searchButton" class="btn btn-success">Search</button>
 						</div>
 					</div>
 				</div>

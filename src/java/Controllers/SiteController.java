@@ -70,8 +70,23 @@ public class SiteController extends HttpServlet {
         String lPrice = request.getParameter("lPrice");
         String hPrice = request.getParameter("hPrice");
 
+        request.setAttribute("name", name);
+        request.setAttribute("category", category);
+        request.setAttribute("lPrice", lPrice);
+        request.setAttribute("hPrice", hPrice);
+        float[] prices = new float[2];
+        prices = ItemRepository.getPriceLimit(name, category);
+        if(lPrice == null || "".equals(lPrice) || hPrice == null || "".equals(hPrice) ){
+            request.setAttribute("lPrice", prices[0]);
+            request.setAttribute("hPrice", prices[1]);
+        }
+        
+        request.setAttribute("lowRange", (int)prices[0]);
+        request.setAttribute("highRange", (int)prices[1]);
+        
         ArrayList<Item> items = ItemRepository.getItemsBy(name,category,lPrice,hPrice);
         request.setAttribute("items", items);
+        
         request.getRequestDispatcher("site/index.jsp").forward(request, response);
     }
 

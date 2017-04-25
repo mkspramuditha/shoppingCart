@@ -219,4 +219,64 @@ public class ItemRepository {
           
         return items;
     }
+    
+    
+    
+    public static float[] getPriceLimit(String name,String category){
+        connection = DBHandler.getConnection();
+          String query = "SELECT *,MIN(price) as minPrice,MAX(price) as maxPrice FROM `items` JOIN categories ON items.category = categories.id JOIN users ON items.user = users.id ";
+          float[] prices = new float[2];
+          ArrayList<String> andQueries = new ArrayList<String>();
+          if(name != null & name != ""){
+              andQueries.add("items.name LIKE '%"+name+"%'");
+          }
+          if(category != null & category != ""){
+              andQueries.add("items.category = "+category);
+          }
+          
+          
+          if(andQueries.size()>0){
+              query+=" WHERE ( ";
+          }
+          for (int i = 0; i < andQueries.size(); i++) {
+              query+= andQueries.get(i);
+              if(i!= andQueries.size()-1){
+                  query += " AND ";
+              }
+          }
+          
+          if(andQueries.size()>0){
+              query+= " )";
+          }
+          
+          query = query.replaceAll("\"", "");
+          System.out.println(query);
+          try{
+            Statement userCheck = connection.createStatement();
+            ResultSet result = userCheck.executeQuery(query);
+            result.last();
+            int size = result.getRow();
+            result.beforeFirst();
+            if(size < 1){
+                System.out.println("null returned");
+                return null;
+            }
+            
+            
+
+            if (result.next()) {
+
+                prices[0] = result.getFloat("minPrice");
+                prices[1] = result.getFloat("maxPrice");
+                
+            }
+	    	        
+            
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+          
+        return prices;
+    }
 }

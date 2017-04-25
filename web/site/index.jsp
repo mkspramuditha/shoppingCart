@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,6 +14,9 @@
         <%! String tab="login"; %>  
         <%@include file="./navbar.jsp" %>
         
+        <fmt:parseNumber var="i" type="number" value="${lPrice}" />
+        <fmt:parseNumber var="j" type="number" value="${hPrice}" />
+
 	
 	<section>
 		<div class="container">
@@ -30,7 +35,7 @@
                                                             <c:forEach items="${categories}" var="category">
                                                                 <div class="panel panel-default">
                                                                         <div class="panel-heading">
-                                                                                <h4 class="panel-title"><a href="#">${category.name}</a></h4>
+                                                                                <h4 class="panel-title " ><a onclick='filter(<c:if test="${empty name}">null</c:if><c:if test="${not empty name}">${name}</c:if>    ,   ${category.id}   ,    <c:if test="${empty i}">null</c:if><c:if test="${not empty i}">${i}</c:if>   ,   <c:if test="${empty j}">null</c:if><c:if test="${not empty j}">${j}</c:if>);' href="#">${category.name}</a></h4>
                                                                         </div>
                                                                 </div>
                                                             </c:forEach>
@@ -44,12 +49,24 @@
 						<div class="price-range"><!--price-range-->
 							<h2>Price Range</h2>
 							<div class="well text-center">
-								 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
-								 <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
+                                                            <c:choose>
+                                                                <c:when test="${lPrice == null || hPrice == null}">
+                                                                    
+								 <input type="text" class="span2" value="" data-slider-min=${lowRange} data-slider-max=${highRange} data-slider-step="5" data-slider-value="[200,350]" id="sl2" ><br />
+                                                                    
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    
+
+                                                                    <input type="text" class="span2" value="" data-slider-min=${lowRange} data-slider-max=${highRange} data-slider-step="5" data-slider-value="[<c:out value="${i}"/>,<c:out value="${j}" />]" id="sl2" ><br />
+
+                                                                </c:otherwise>
+                                                            </c:choose>
+								 <b class="pull-left">${lowRange}</b> <b class="pull-right">${highRange}</b>
                                                                  
 							</div>
-                                                        <button class="btn btn-success">Filter</button>
-						</div><!--/price-range-->
+                                                        <button onclick='sliderFilter(<c:if test="${empty name}">null</c:if><c:if test="${not empty name}">"${name}"</c:if>,<c:if test="${empty category}">null</c:if><c:if test="${not empty category}">${category}</c:if> );' class="btn btn-success">Filter</button>
+                                                </div>
 						
 						<div class="shipping text-center"><!--shipping-->
 							<img src="images/home/shipping.jpg" alt="" />
@@ -167,11 +184,34 @@
         
         <script>
             
-            function filter(){
-                window.location.href = '/shoppingCart/?name="12"&category="1"&lPrice="200"&hPrice="1000"';
+            function sliderFilter(name, category){
+                var lPrice = $('#sl2').data('slider').getValue()[0];
+                var hPrice = $('#sl2').data('slider').getValue()[1];
+                filter(name,category,lPrice,hPrice);
+            }
+            
+            function filterName(category,lPrice,hPrice){
+                var name = '"'+$("#search").val()+'"';
+                filter(name,category,lPrice,hPrice);
+            }
+            
+            function filter(name = null,category = null,lPrice = null,hPrice= null){
+                var link = '/shoppingCart/?';
+                if(name !== null){
+                    link+= 'name='+name+'&';
+                }
+                if(category !== null){
+                    link+= 'category='+category+'&';
+                }
+                if(lPrice !== null && hPrice !== null){
+                    link+= 'lPrice='+lPrice+'&hPrice='+hPrice+'&';
+                }
+                window.location.href = link;
             
 
             }
+            
+         
             
         </script>
         
