@@ -80,7 +80,7 @@ public class AddCartItem extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String itemId = request.getParameter("item");
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession();
         ArrayList<CartItem> cart = (ArrayList<CartItem>)session.getAttribute("cart");
         Item item = ItemRepository.getItemById(itemId);
         int quantity;
@@ -102,11 +102,15 @@ public class AddCartItem extends HttpServlet {
                     }
                 }
                 
-                cart.add(new CartItem(item,quantity));
+                
 
             } else {
                 
+                
             }
+            session = request.getSession(true);
+            cart.add(new CartItem(item,quantity));
+            session.setAttribute("cart", cart);
         }
        
     }

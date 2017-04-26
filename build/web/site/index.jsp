@@ -91,13 +91,13 @@
                                                                                                 <img src="${item.image}" alt="" />
                                                                                                 <h2>Rs.${item.price}</h2>
                                                                                                 <p>${item.name}</p>
-                                                                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                                                                <a href="#" onClick="addToCart(${item.id},1);" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                                                         </div>
                                                                                         <div class="product-overlay">
                                                                                                 <div class="overlay-content">
                                                                                                         <h2>Rs.${item.price}</h2>
                                                                                                         <p>${item.name}</p>
-                                                                                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                                                                        <a href="#" onClick="addToCart(${item.id},1);" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                                                                 </div>
                                                                                         </div>
                                                                                 </div>
@@ -209,6 +209,17 @@
                 window.location.href = link;
             
 
+            }
+            
+            function addToCart(itemId,quantity){
+                var saveData = $.ajax({
+                        type: 'POST',
+                        url: "addCartItem",
+                        data: {item:itemId,quantity:quantity},
+                        dataType: "text",
+                        success: function(resultData) { alert("Save Complete") },
+                        error:function(){alert("error")}
+                });
             }
             
          

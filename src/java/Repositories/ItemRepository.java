@@ -111,6 +111,7 @@ public class ItemRepository {
     
     private static Item createObject(ResultSet result,User user) throws SQLException {
         Item item = new Item();
+        item.setId(result.getInt("items.id"));
         item.setName(result.getString("name"));
         item.setPrice(result.getFloat("price"));
         item.setItemCode(result.getString("itemCode"));
@@ -283,11 +284,11 @@ public class ItemRepository {
     public static Item getItemById(String id){
         connection = DBHandler.getConnection();
            ArrayList<Item> items=new ArrayList<Item>();
-          String query = "SELECT * FROM `items` JOIN categories ON items.category = categories.id JOIN users ON items.user = users.id ";
+          String query = "SELECT * FROM `items` JOIN categories ON items.category = categories.id JOIN users ON items.user = users.id WHERE items.id = "+id;
        
           query = query.replaceAll("\"", "");
           System.out.println(query);
-          Item item;
+          Item item = null;
           try{
             Statement userCheck = connection.createStatement();
             ResultSet result = userCheck.executeQuery(query);
