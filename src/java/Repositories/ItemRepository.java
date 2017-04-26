@@ -279,4 +279,40 @@ public class ItemRepository {
           
         return prices;
     }
+    
+    public static Item getItemById(String id){
+        connection = DBHandler.getConnection();
+           ArrayList<Item> items=new ArrayList<Item>();
+          String query = "SELECT * FROM `items` JOIN categories ON items.category = categories.id JOIN users ON items.user = users.id ";
+       
+          query = query.replaceAll("\"", "");
+          System.out.println(query);
+          Item item;
+          try{
+            Statement userCheck = connection.createStatement();
+            ResultSet result = userCheck.executeQuery(query);
+            result.last();
+            int size = result.getRow();
+            result.beforeFirst();
+            if(size < 1){
+                System.out.println("null returned");
+                return null;
+            }
+            
+            
+
+            while (result.next()) {
+
+                item = createObject(result, null);
+                
+            }
+	    	        
+            
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+          
+        return item;
+    }
 }

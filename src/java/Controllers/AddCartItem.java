@@ -6,12 +6,13 @@
 package Controllers;
 
 import Entity.CartItem;
-import Entity.Category;
 import Entity.Item;
 import Repositories.ItemRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import static java.util.Collections.list;
+import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,8 +24,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author shan
  */
-@WebServlet(name = "SiteController", urlPatterns = {"/site"})
-public class SiteController extends HttpServlet {
+@WebServlet(name = "AddCartItem", urlPatterns = {"/addCartItem"})
+public class AddCartItem extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +44,10 @@ public class SiteController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SiteConroller</title>");            
+            out.println("<title>Servlet AddCartItem</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SiteConroller at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddCartItem at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,39 +65,7 @@ public class SiteController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<Category> categories = ItemRepository.getCategories();
-        
-        ArrayList<CartItem> cart = new ArrayList<CartItem>();
-        HttpSession session = request.getSession(true);
-        if((ArrayList<CartItem>)session.getAttribute("cart") == null){
-            session.setAttribute("cart", cart);
-        }
-
-        request.setAttribute("categories", categories);
-        
-        String name = request.getParameter("name");
-        String category = request.getParameter("category");
-        String lPrice = request.getParameter("lPrice");
-        String hPrice = request.getParameter("hPrice");
-
-        request.setAttribute("name", name);
-        request.setAttribute("category", category);
-        request.setAttribute("lPrice", lPrice);
-        request.setAttribute("hPrice", hPrice);
-        float[] prices = new float[2];
-        prices = ItemRepository.getPriceLimit(name, category);
-        if(lPrice == null || "".equals(lPrice) || hPrice == null || "".equals(hPrice) ){
-            request.setAttribute("lPrice", prices[0]);
-            request.setAttribute("hPrice", prices[1]);
-        }
-        
-        request.setAttribute("lowRange", (int)prices[0]);
-        request.setAttribute("highRange", (int)prices[1]);
-        
-        ArrayList<Item> items = ItemRepository.getItemsBy(name,category,lPrice,hPrice);
-        request.setAttribute("items", items);
-        
-        request.getRequestDispatcher("site/index.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -110,7 +79,36 @@ public class SiteController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String itemId = request.getParameter("item");
+        HttpSession session = request.getSession(true);
+        ArrayList<CartItem> cart = (ArrayList<CartItem>)session.getAttribute("cart");
+        Item item = ItemRepository.getItemById(itemId);
+        int quantity;
+        if(request.getParameter("quantity") == null){
+            quantity = 1;
+        }
+        else{
+            quantity = Integer.parseInt(request.getParameter("quantity"));
+        }
+        
+        
+        if(item != null){
+            if (cart.contains(item)) {
+                Iterator<CartItem> it = cart.iterator();
+                while (it.hasNext()) {
+                    if (it.next().getItem().getId()== item.getId()) {
+                        it.remove();
+                        break;
+                    }
+                }
+                
+                cart.add(new CartItem(item,quantity));
+
+            } else {
+                
+            }
+        }
+       
     }
 
     /**
