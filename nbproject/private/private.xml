@@ -3,6 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/shan/NetBeansProjects/shoppingCart/src/java/Controllers/AddItem.java</file>
+            <file>file:/home/shan/NetBeansProjects/shoppingCart/web/site/index.jsp</file>
+            <file>file:/home/shan/NetBeansProjects/shoppingCart/src/java/Controllers/SiteController.java</file>
+            <file>file:/home/shan/NetBeansProjects/shoppingCart/web/WEB-INF/web.xml</file>
             <file>file:/home/shan/NetBeansProjects/shoppingCart/src/java/Controllers/RemoveCartItem.java</file>
         </group>
     </open-files>

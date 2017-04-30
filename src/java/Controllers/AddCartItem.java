@@ -105,7 +105,6 @@ public class AddCartItem extends HttpServlet {
                             session = request.getSession(true);
                             cart.add(new CartItem(item,quantity));
                             session.setAttribute("cart", cart);
-                            
                         }
                         available = true;
                     } 

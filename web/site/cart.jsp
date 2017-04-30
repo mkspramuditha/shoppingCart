@@ -49,7 +49,7 @@
                                                             <c:forEach items="${cart}" var="row">
                                                                 <tr>
                                                                         <td class="cart_product">
-                                                                                <a href=""><img src=${row.item.image} alt=""></a>
+                                                                                <a href=""><img src=uploads/${row.item.image} alt="" height="50" width="50"></a>
                                                                         </td>
                                                                         <td class="cart_description">
                                                                                 <h4><a href="">${row.item.name}</a></h4>
@@ -60,9 +60,9 @@
                                                                         </td>
                                                                         <td class="cart_quantity">
                                                                                 <div class="cart_quantity_button">
-                                                                                        <a class="cart_quantity_up" href=""> + </a>
-                                                                                        <input class="cart_quantity_input" type="text" name="quantity" value=${row.quantity} autocomplete="off" size="2">
-                                                                                        <a class="cart_quantity_down" href=""> - </a>
+                                                                                        <!--<a class="cart_quantity_up" href=""> + </a>-->
+                                                                                        <input class="cart_quantity_input" type ="number" min= "1" name="quantity" value=${row.quantity} autocomplete="off" size="2"  id=${row.item.id} >
+                                                                                        <!--<a class="cart_quantity_down" href=""> - </a>-->
                                                                                 </div>
                                                                         </td>
                                                                         <td class="cart_total">
@@ -114,6 +114,29 @@
     </body>
     
     <%@ include file="./script.jsp" %>
+    
+    <script>
+        
+        $(".cart_quantity_input").change(function(){
+           var id = this.id;
+           var value = $(this).val();
+           addToCart(id,value);
+           
+        
+        });
+        
+        function addToCart(itemId,quantity){
+                var saveData = $.ajax({
+                        type: 'POST',
+                        url: "addCartItem",
+                        data: {item:itemId,quantity:quantity},
+                        dataType: "text",
+                        success: function(resultData) { alert("Save Complete") },
+                        error:function(){alert("error")}
+                });
+            }
+        
+        </script>
     
    
         
