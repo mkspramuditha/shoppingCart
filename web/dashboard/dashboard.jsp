@@ -161,7 +161,7 @@
                                                 <td>${item.category.name}</td>
                                                 <td>${item.price}</td>
                                                 <td>${item.quantity}</td>
-                                                <td><a class="btn btn-success">Edit</a></td>
+                                                <td><a class="btn btn-success" href="editItem?id=${item.id}">Edit</a></td>
                                                 <td><a class="btn btn-danger">Delete</a></td>
                                             </tr>
                                         </c:forEach>
