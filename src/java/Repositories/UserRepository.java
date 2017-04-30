@@ -8,7 +8,9 @@ package Repositories;
 import DatabaseHandler.DBHandler;
 import Entity.Role;
 import Entity.User;
+import static Repositories.ItemRepository.connection;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -74,6 +76,28 @@ public class UserRepository {
         }
         
         return user;
+    }
+    
+    public static boolean createUser(String firstName,String lastName,String email,String password){
+        connection = DBHandler.getConnection();
+        String querySave = "INSERT INTO `users` (`firstName`, `lastName`, `email`, `password`,`role`) VALUES (?, ?, ?, ?, ?)";
+        
+        try{
+            PreparedStatement itemSave = connection.prepareStatement(querySave);
+            itemSave.setString(1, firstName);
+            itemSave.setString(2, lastName);
+            itemSave.setString(3, email);
+            itemSave.setString(4, password );
+            itemSave.setInt(5, 1);
+            itemSave.execute();
+            return true;
+        }catch(SQLException e){
+            
+            e.printStackTrace();
+            return false;
+        }
+        
+//        return true;
     }
     
 }

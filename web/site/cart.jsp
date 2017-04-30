@@ -53,7 +53,7 @@
                                                                         </td>
                                                                         <td class="cart_description">
                                                                                 <h4><a href="">${row.item.name}</a></h4>
-                                                                                <p>${row.item.name}</p>
+                                                                                <!--<p>${row.item.name}</p>-->
                                                                         </td>
                                                                         <td class="cart_price">
                                                                                 <p>Rs.${row.item.price}</p>
@@ -61,12 +61,12 @@
                                                                         <td class="cart_quantity">
                                                                                 <div class="cart_quantity_button">
                                                                                         <!--<a class="cart_quantity_up" href=""> + </a>-->
-                                                                                        <input class="cart_quantity_input" type ="number" min= "1" name="quantity" value=${row.quantity} autocomplete="off" size="2"  id=${row.item.id} >
+                                                                                        <input class="cart_quantity_input" type ="number" min= "1" name="quantity" value=${row.quantity} autocomplete="off" size="2"  id=${row.item.id}-${row.item.price} >
                                                                                         <!--<a class="cart_quantity_down" href=""> - </a>-->
                                                                                 </div>
                                                                         </td>
                                                                         <td class="cart_total">
-                                                                                <p class="cart_total_price">$59</p>
+                                                                            <p class="cart_total_price" id=${row.item.id}total>${row.item.price * row.quantity}</p>
                                                                         </td>
                                                                         <td class="cart_delete">
                                                                                 <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
@@ -95,12 +95,11 @@
 				<div class="col-sm-6">
 					<div class="total_area">
 						<ul>
-							<li>Cart Sub Total <span>$59</span></li>
-							<li>Eco Tax <span>$2</span></li>
+							<li>Cart Sub Total <span id="subTotal"></span></li>
 							<li>Shipping Cost <span>Free</span></li>
-							<li>Total <span>$61</span></li>
+                                                        <li>Total <span id="total"></span></li>
 						</ul>
-							<a class="btn btn-default update" href="">Update</a>
+							<!--<a class="btn btn-default update" href="">Update</a>-->
 							<a class="btn btn-default check_out" href="">Check Out</a>
 					</div>
 				</div>
@@ -116,12 +115,21 @@
     <%@ include file="./script.jsp" %>
     
     <script>
+        $( document ).ready(function() {
+            setPurchase();
+        });
         
         $(".cart_quantity_input").change(function(){
-           var id = this.id;
+           var id = this.id.split("-");
            var value = $(this).val();
-           addToCart(id,value);
-           
+           var idItem = id[0];
+           console.log(idItem);
+           console.log(value);
+           var price = id[1];
+           addToCart(idItem,value);
+           console.log(price);
+           $("#"+idItem+"total").html(parseFloat(value*price));
+           setPurchase();
         
         });
         
@@ -135,6 +143,19 @@
                         error:function(){alert("error")}
                 });
             }
+            
+        function setPurchase(){
+            var total = 0;
+            console.log("called");
+            $(".cart_total_price").each(function() {
+                total+=parseInt($(this).html());
+                console.log($(this).html());
+            });
+            
+            $("#subTotal").html(total);
+            $("#total").html(total);
+            
+        }
         
         </script>
     

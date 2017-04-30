@@ -36,6 +36,8 @@ public class ItemRepository {
               andQueries.add("items.itemCode LIKE '%"+itemCode+"%'");
           }
           
+          andQueries.add("items.user = "+user.getId());
+          
           if(andQueries.size()>0){
               query+=" WHERE ( ";
           }
