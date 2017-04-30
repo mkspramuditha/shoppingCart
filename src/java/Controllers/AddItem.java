@@ -101,7 +101,7 @@ public class AddItem extends HttpServlet {
             response.sendRedirect("login");
             return;
         }
-        
+//        request.getServletContext().getRealPath("/uploads");
         String path = request.getServletContext().getRealPath("/uploads");
         System.out.println(path);
         

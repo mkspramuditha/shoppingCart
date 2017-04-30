@@ -12,6 +12,7 @@ import Repositories.ItemRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -71,6 +72,8 @@ public class SiteController extends HttpServlet {
         if((ArrayList<CartItem>)session.getAttribute("cart") == null){
             session.setAttribute("cart", cart);
         }
+        String path = request.getServletContext().getRealPath("/uploads");
+        System.out.println("path"+path);
 
         request.setAttribute("categories", categories);
         

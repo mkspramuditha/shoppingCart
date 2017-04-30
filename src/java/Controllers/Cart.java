@@ -63,7 +63,7 @@ public class Cart extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         ArrayList<CartItem> cart= (ArrayList<CartItem>) session.getAttribute("cart");
-        System.out.println(cart.size());
+//        System.out.println(cart.size());
         request.setAttribute("cart", cart);
         request.getRequestDispatcher("site/cart.jsp").forward(request, response);
     }

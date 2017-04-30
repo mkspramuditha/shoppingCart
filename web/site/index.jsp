@@ -88,7 +88,7 @@
                                                                         <div class="product-image-wrapper">
                                                                                 <div class="single-products">
                                                                                         <div class="productinfo text-center">
-                                                                                                <img src="${item.image}" alt="" />
+                                                                                                <img src="uploads/${item.image}" alt="" />
                                                                                                 <h2>Rs.${item.price}</h2>
                                                                                                 <p>${item.name}</p>
                                                                                                 <a href="#" onClick="addToCart(${item.id},1);" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>

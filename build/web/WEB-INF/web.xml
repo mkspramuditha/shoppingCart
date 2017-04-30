@@ -6,4 +6,6 @@
             1000
         </session-timeout>
     </session-config>
+    <!--<property name="alternatedocroot_1" value="from=/* dir=/home/shan/GlassFish_Server/glassfish/domains/domain1/lib/classes/" />--> 
+
 </web-app>

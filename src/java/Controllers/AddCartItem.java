@@ -93,24 +93,34 @@ public class AddCartItem extends HttpServlet {
         
         
         if(item != null){
-            if (cart.contains(item)) {
-                Iterator<CartItem> it = cart.iterator();
-                while (it.hasNext()) {
-                    if (it.next().getItem().getId()== item.getId()) {
-                        it.remove();
-                        break;
-                    }
-                }
-                
-                
+            
+            boolean available = false;
+            
+            Iterator<CartItem> itr = cart.iterator(); // remove all even numbers 
+                while (itr.hasNext()) { 
+                    CartItem cartItem = itr.next(); 
+                    if (cartItem.getItem().getId()  == item.getId()) {
+                        if(quantity != 1){
+                            cart.remove(cartItem);
+                            session = request.getSession(true);
+                            cart.add(new CartItem(item,quantity));
+                            session.setAttribute("cart", cart);
+                            
+                        }
+                        available = true;
+                    } 
+                } 
 
-            } else {
                 
                 
+            if(available == false){
+                session = request.getSession(true);
+                cart.add(new CartItem(item,quantity));
+                session.setAttribute("cart", cart);
             }
-            session = request.getSession(true);
-            cart.add(new CartItem(item,quantity));
-            session.setAttribute("cart", cart);
+
+            
+            
         }
        
     }
