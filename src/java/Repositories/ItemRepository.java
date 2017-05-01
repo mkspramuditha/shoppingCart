@@ -321,7 +321,7 @@ public class ItemRepository {
     
     public static boolean editItem(String name, String itemCode, String price, String quantity, String category,String image,String id){
         connection = DBHandler.getConnection();
-        String querySave = "UPDATE `items` SET `name` = ? , `itemCode` = ?, `price` = ?, `quantity` = ?,`category`= ? WHERE `items`.`id` = "+id;
+        String querySave = "UPDATE `items` SET `name` = ? , `itemCode` = ?, `price` = ?, `quantity` = ?,`category`= ?, `image`= ? WHERE `items`.`id` = "+id;
         
         try{
             PreparedStatement itemSave = connection.prepareStatement(querySave);
@@ -330,7 +330,7 @@ public class ItemRepository {
             itemSave.setFloat(3, Float.parseFloat(price));
             itemSave.setInt(4, Integer.parseInt(quantity));
             itemSave.setInt(5, Integer.parseInt(category));
-//            itemSave.setString(6, image);
+            itemSave.setString(6, image);
             itemSave.execute();
             System.out.println(itemSave);
 

@@ -21,8 +21,8 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
-                    Creative Tim
+                <a href="/shoppingCart" class="simple-text">
+                    EShopper
                 </a>
             </div>
 
@@ -65,13 +65,13 @@
                         </li>
                     </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
+<!--                    <ul class="nav navbar-nav navbar-right">
                         <li>
                            <a href="">
                                Account
                             </a>
                         </li>
-                    </ul>
+                    </ul>-->
                 </div>
             </div>
         </nav>
@@ -160,23 +160,7 @@
         </div>
 
 
-        <footer class="footer">
-            <div class="container-fluid">
-                <nav class="pull-left">
-                    <ul>
-                        <li>
-                            <a href="#">
-                                Home
-                            </a>
-                        </li>
-
-                    </ul>
-                </nav>
-                <p class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
-                </p>
-            </div>
-        </footer>
+        
 
     </div>
 </div>

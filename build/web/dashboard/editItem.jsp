@@ -21,8 +21,8 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
-                    Creative Tim
+                <a href="/shoppingCart" class="simple-text">
+                    EShopper
                 </a>
             </div>
 
@@ -65,13 +65,13 @@
                         </li>
                     </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
+<!--                    <ul class="nav navbar-nav navbar-right">
                         <li>
                            <a href="">
                                Account
                             </a>
                         </li>
-                    </ul>
+                    </ul>-->
                 </div>
             </div>
         </nav>
