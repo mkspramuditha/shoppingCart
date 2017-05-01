@@ -341,4 +341,24 @@ public class ItemRepository {
             return false;
         }
     }
+    
+    public static boolean removeItem(String id){
+        connection = DBHandler.getConnection();
+        String queryDelete = "DELETE FROM `items` WHERE id = ?";
+        
+        try{
+            PreparedStatement itemDelete = connection.prepareStatement(queryDelete);
+            itemDelete.setString(1, id);
+            
+//            itemSave.setString(6, image);
+            itemDelete.execute();
+            System.out.println(itemDelete);
+
+            return true;
+        }catch(SQLException e){
+            
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

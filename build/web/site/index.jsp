@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-          <title>Login or SignUp</title>
+          <title>EShopper | Home</title>
           <%@ include file="./head.jsp" %>
     </head>
     <body>
@@ -198,7 +198,7 @@
             function filter(name = null,category = null,lPrice = null,hPrice= null){
                 var link = '/shoppingCart/?';
                 if(name !== null){
-                    link+= 'name='+name+'&';
+                    link+= 'name="'+name+'"&';
                 }
                 if(category !== null){
                     link+= 'category='+category+'&';
@@ -217,7 +217,7 @@
                         url: "addCartItem",
                         data: {item:itemId,quantity:quantity},
                         dataType: "text",
-                        success: function(resultData) { alert("Save Complete") },
+                        success: function(resultData) { alert("Item Added to the cart !") },
                         error:function(){alert("error")}
                 });
             }

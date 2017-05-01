@@ -72,8 +72,8 @@ public class SiteController extends HttpServlet {
         if((ArrayList<CartItem>)session.getAttribute("cart") == null){
             session.setAttribute("cart", cart);
         }
-        String path = request.getServletContext().getRealPath("/uploads");
-        System.out.println("path"+path);
+//        String path = request.getServletContext().getRealPath("/uploads");
+//        System.out.println("path"+path);
 
         request.setAttribute("categories", categories);
         

@@ -21,8 +21,8 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
-                    Creative Tim
+                <a href="/shoppingCart" class="simple-text">
+                    EShopper
                 </a>
             </div>
 
@@ -162,7 +162,7 @@
                                                 <td>${item.price}</td>
                                                 <td>${item.quantity}</td>
                                                 <td><a class="btn btn-success" href="editItem?id=${item.id}">Edit</a></td>
-                                                <td><a class="btn btn-danger">Delete</a></td>
+                                                <td><a class="btn btn-danger" href="removeItem?id=${item.id}">Delete</a></td>
                                             </tr>
                                         </c:forEach>
                                     </c:otherwise>
